@@ -1,0 +1,75 @@
+safety:
+  enabled: true
+  strict_mode: false
+  block_on_uncertainty: false
+  require_human_review: false
+
+modules:
+  input_validator:
+    enabled: true
+    check_injections: true
+    check_jailbreaks: true
+    check_sql_injection: true
+    check_command_injection: true
+    max_input_length: 10000
+    
+  content_moderator:
+    enabled: true
+    categories:
+      - toxic
+      - hate_speech
+      - violence
+      - sexual
+      - illegal
+      - self_harm
+    confidence_threshold: 0.7
+    
+  output_filter:
+    enabled: true
+    block_unsafe: true
+    check_toxicity: true
+    check_pii: true
+    confidence_threshold: 0.7
+    
+  rate_limiter:
+    enabled: true
+    requests_per_minute: 60
+    requests_per_hour: 1000
+    requests_per_day: 10000
+    burst_size: 10
+    
+  privacy:
+    enabled: true
+    encrypt_logs: true
+    anonymize_pii: true
+    pii_patterns:
+      - email
+      - phone
+      - credit_card
+      - ssn
+      - api_key
+    retention_days: 30
+    
+  audit_logging:
+    enabled: true
+    log_level: INFO
+    log_to_file: true
+    log_to_database: false
+    log_sensitive_data: false
+
+integrations:
+  openai:
+    enabled: false
+    api_version: v1
+    
+  anthropic:
+    enabled: false
+    api_version: v1
+    
+  local_llm:
+    enabled: false
+    model_path: null
+    
+plugins:
+  enabled: true
+  plugin_directory: ./plugins
